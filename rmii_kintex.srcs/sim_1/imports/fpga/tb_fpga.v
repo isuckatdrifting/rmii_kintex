@@ -4,7 +4,7 @@
 
 module rmii_fpga_tb;
 
-reg clk, resetn;
+reg clk_p, clk_n, resetn;
 // Config registers
 reg [31:0] arp [0:17];
 reg [31:0] cfg [0:`CFG_PLENGTH-1];
@@ -18,7 +18,8 @@ wire [1:0] eth_txd;
 reg        eth_rxdv_en;    
 
 fpga u_rmii_fpga(
-  .clk          (clk),
+  .clk_p         (clk_p),
+  .clk_n         (clk_n),
   .reset_n       (resetn),
 
   .eth_ref_clk  (eth_ref_clk),
@@ -29,7 +30,7 @@ fpga u_rmii_fpga(
   );
 
 initial begin
-  clk = 0; resetn = 0; eth_rxdv_en = 0;
+  clk_p = 1; clk_n = 0; resetn = 0; eth_rxdv_en = 0;
   eth_crs_dv = 0; eth_rxerr = 0; eth_rxd = 4'h0;
   arp_send = 0;
 	#10
@@ -51,7 +52,8 @@ initial begin
   eth_rxdv_en = 0;
 	// $finish();
 end
-always #5 clk = ~clk;
+always #2.5 clk_p = ~clk_p;
+always #2.5 clk_n = ~clk_n;
 
 // RMII shift counter
 reg [4:0] sft [0:15];

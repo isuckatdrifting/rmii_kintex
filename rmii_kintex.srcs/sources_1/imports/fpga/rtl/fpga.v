@@ -70,73 +70,106 @@ module fpga (
      * UART: 500000 bps, 8N1
      */
     input  wire       uart_rxd,
-    output wire       uart_txd
+    output wire       uart_txd,
+    output wire       mdc,
+    inout wire        mdio
 );
+assign mdc = 0;
+assign mdio = 1;
+// Clock and reset
 
-wire clk_buf, CLKFB_int, CLKOUT5, CLKOUT6, clk_int, locked;
+wire clk_ibufg;
+wire clk_bufg;
+wire clk_mmcm_out;
+
+// Internal 125 MHz clock
+wire clk_int;
+wire rst_int;
+
+wire mmcm_rst = ~reset_n;
+wire mmcm_locked;
+wire mmcm_clkfb;
+
 // Input buffering
-IBUFDS u_clkin_buf (
-  .O(clk_buf),
+IBUFGDS u_clkin_buf (
+  .O(clk_ibufg),
   .I(clk_p),
   .IB(clk_n)
 );
-// Clocking Primitive
-MMCME2_ADV #(
-  .BANDWIDTH("HIGH"),        // Jitter programming
-  .CLKFBOUT_MULT_F(5.000),          // Multiply value for all CLKOUT
-  .CLKFBOUT_PHASE(0.0),           // Phase offset in degrees of CLKFB
-  .CLKFBOUT_USE_FINE_PS("FALSE"), // Fine phase shift enable (TRUE/FALSE)
-  .CLKIN1_PERIOD(5),            // Input clock period in ns to ps resolution (i.e. 33.333 is 30 MHz).
-  .CLKOUT5_DIVIDE(5.000),         // Divide amount for CLKOUT5
-  .CLKOUT5_DUTY_CYCLE(0.5),       // Duty cycle for CLKOUT5
-  .CLKOUT5_PHASE(0.0),            // Phase offset for CLKOUT5
-  .CLKOUT6_DIVIDE(20.000),         // Divide amount for CLKOUT6
-  .CLKOUT6_DUTY_CYCLE(0.5),       // Duty cycle for CLKOUT6
-  .CLKOUT6_PHASE(0.0),            // Phase offset for CLKOUT6
-  .CLKOUT4_USE_FINE_PS("FALSE"),  // Fine phase shift enable (TRUE/FALSE)
-  .CLKOUT5_USE_FINE_PS("FALSE"),  // Fine phase shift enable (TRUE/FALSE)
-  .CLKOUT6_USE_FINE_PS("FALSE"),  // Fine phase shift enable (TRUE/FALSE)
-  .COMPENSATION("ZHOLD"),          // Clock input compensation
-  .DIVCLK_DIVIDE(1),              // Master division value
-  .STARTUP_WAIT("FALSE")          // Delays DONE until MMCM is locked
-  )
-MMCME2_ADV_inst (
-  .CLKFBOUT     (CLKFB_int),         // 1-bit output: Feedback clock
-  .CLKFBOUTB    (),       // 1-bit output: Inverted CLKFBOUT
-  .CLKFBSTOPPED (), // 1-bit output: Feedback clock stopped
-  .CLKINSTOPPED (), // 1-bit output: Input clock stopped
-  .CLKOUT5      (CLKOUT5),           // 1-bit output: CLKOUT5
-  .CLKOUT6      (CLKOUT6),           // 1-bit output: CLKOUT6
-  .DO           (),                     // 16-bit output: DRP data output
-  .DRDY         (),                 // 1-bit output: DRP ready
-  .LOCKED       (locked),             // 1-bit output: LOCK
-  .PSDONE       (),             // 1-bit output: Phase shift done
-  .CLKFBIN      (CLKFB_int),           // 1-bit input: Feedback clock
-  .CLKIN1       (clk_buf),             // 1-bit input: Primary clock
-  .CLKIN2       (1'b0),             // 1-bit input: Secondary clock
-  .CLKINSEL     (1'b1),         // 1-bit input: Clock select, High=CLKIN1 Low=CLKIN2
-  .DADDR        (7'h0),               // 7-bit input: DRP address
-  .DCLK         (1'b0),                 // 1-bit input: DRP clock
-  .DEN          (1'b0),                   // 1-bit input: DRP enable
-  .DI           (16'h0),                     // 16-bit input: DRP data input
-  .DWE          (1'b0),                   // 1-bit input: DRP write enable
-  .PSCLK        (1'b0),               // 1-bit input: Phase shift clock
-  .PSEN         (1'b0),                 // 1-bit input: Phase shift enable
-  .PSINCDEC     (1'b0),         // 1-bit input: Phase shift increment/decrement
-  .PWRDWN       (1'b0),             // 1-bit input: Power-down
-  .RST          (1'b0)                    // 1-bit input: Reset
+
+wire clk_50mhz_mmcm_out;
+wire clk_50mhz_int;
+
+// MMCM instance
+// 100 MHz in, 125 MHz out
+// PFD range: 10 MHz to 550 MHz
+// VCO range: 600 MHz to 1200 MHz
+// M = 10, D = 1 sets Fvco = 1000 MHz (in range)
+// Divide by 8 to get output frequency of 125 MHz
+// Divide by 40 to get output frequency of 25 MHz
+// 1000 / 5 = 200 MHz
+MMCME2_BASE #(
+    .BANDWIDTH("OPTIMIZED"),
+    .CLKOUT0_DIVIDE_F(8),
+    .CLKOUT0_DUTY_CYCLE(0.5),
+    .CLKOUT0_PHASE(0),
+    .CLKOUT1_DIVIDE(20),
+    .CLKOUT1_DUTY_CYCLE(0.3),
+    .CLKOUT1_PHASE(0),
+    .CLKOUT2_DIVIDE(1),
+    .CLKOUT2_DUTY_CYCLE(0.5),
+    .CLKOUT2_PHASE(0),
+    .CLKOUT3_DIVIDE(1),
+    .CLKOUT3_DUTY_CYCLE(0.5),
+    .CLKOUT3_PHASE(0),
+    .CLKOUT4_DIVIDE(1),
+    .CLKOUT4_DUTY_CYCLE(0.5),
+    .CLKOUT4_PHASE(0),
+    .CLKOUT5_DIVIDE(1),
+    .CLKOUT5_DUTY_CYCLE(0.5),
+    .CLKOUT5_PHASE(0),
+    .CLKOUT6_DIVIDE(1),
+    .CLKOUT6_DUTY_CYCLE(0.5),
+    .CLKOUT6_PHASE(0),
+    .CLKFBOUT_MULT_F(5),
+    .CLKFBOUT_PHASE(0),
+    .DIVCLK_DIVIDE(1),
+    .REF_JITTER1(0.010),
+    .CLKIN1_PERIOD(5.0),
+    .STARTUP_WAIT("FALSE"),
+    .CLKOUT4_CASCADE("FALSE")
+)
+clk_mmcm_inst (
+    .CLKIN1(clk_ibufg),
+    .CLKFBIN(mmcm_clkfb),
+    .RST(mmcm_rst),
+    .PWRDWN(1'b0),
+    .CLKOUT0(clk_mmcm_out),
+    .CLKOUT0B(),
+    .CLKOUT1(clk_50mhz_mmcm_out),
+    .CLKOUT1B(),
+    .CLKOUT2(),
+    .CLKOUT2B(),
+    .CLKOUT3(),
+    .CLKOUT3B(),
+    .CLKOUT4(),
+    .CLKOUT5(),
+    .CLKOUT6(),
+    .CLKFBOUT(mmcm_clkfb),
+    .CLKFBOUTB(),
+    .LOCKED(mmcm_locked)
 );
 
-// Output buffering
-BUFG u_mainclk (
-  .O(clk_int),
-  .I(CLKOUT5)
+BUFG
+clk_bufg_inst (
+    .I(clk_mmcm_out),
+    .O(clk_int)
 );
 
-// Output buffering
-BUFG u_ethphyclk (
-  .O(eth_ref_clk),
-  .I(CLKOUT6)
+BUFG
+clk_50mhz_bufg_inst (
+    .I(clk_50mhz_mmcm_out),
+    .O(clk_50mhz_int)
 );
 
 sync_reset #(
@@ -144,7 +177,7 @@ sync_reset #(
 )
 sync_reset_inst (
     .clk(clk_int),
-    .rst(~locked),
+    .rst(~mmcm_locked),
     .sync_reset_out(rst_int)
 );
 
@@ -176,6 +209,35 @@ sync_signal_inst (
     .out({uart_rxd_int})
 );
 
+assign eth_ref_clk = clk_50mhz_int;
+
+// reg [5:0] signal;
+// assign rst_int_n = ~rst_int;
+// reg [31:0] cnt;
+// always @(posedge clk_int or negedge rst_int_n) begin
+//   if(!rst_int_n) begin
+//     signal <= 'h0; // LEDs are active low
+//     cnt <= 0;
+//   end else begin
+//     if(cnt == 32'd100_000_000) begin
+//       cnt <= 0;
+//       signal[0] <= ~signal[0];
+//       signal[1] <= ~signal[1];
+//       signal[2] <= ~signal[2];
+//       signal[3] <= ~signal[3];
+//       signal[4] <= ~signal[4];
+//       signal[5] <= ~signal[5];
+//     end else begin
+//       cnt <= cnt + 1;
+//     end
+//   end
+// end
+// assign eth_crs_dv = signal[0];
+// assign eth_rxd[0] = signal[1];
+// assign eth_txd[0] = signal[2];
+// assign eth_rxd[1] = signal[3];
+// assign eth_txd[1] = signal[4];
+// assign eth_tx_en = signal[5];
 wire rmii2mac_col, rmii2mac_crs, rmii2mac_rx_clk, rmii2mac_tx_clk,
     rmii2mac_rx_dv, rmii2mac_rx_er, mac2rmii_tx_en;
 wire [3:0] rmii2mac_rxd, mac2rmii_txd;

@@ -12,17 +12,201 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="41000000001fs"></ZoomEndTime>
-      <Cursor1Time time="15005000000fs"></Cursor1Time>
+      <ZoomEndTime time="415500001fs"></ZoomEndTime>
+      <Cursor1Time time="0fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="175"></NameColumnWidth>
-      <ValueColumnWidth column_width="99"></ValueColumnWidth>
+      <ValueColumnWidth column_width="95"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="334" />
-   <wvobject type="logic" fp_name="/rmii_fpga_tb/clk">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
+   <WVObjectSize size="380" />
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/clk_p">
+      <obj_property name="ElementShortName">clk_p</obj_property>
+      <obj_property name="ObjectShortName">clk_p</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/clk_n">
+      <obj_property name="ElementShortName">clk_n</obj_property>
+      <obj_property name="ObjectShortName">clk_n</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/reset_n">
+      <obj_property name="ElementShortName">reset_n</obj_property>
+      <obj_property name="ObjectShortName">reset_n</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/rmii_fpga_tb/u_rmii_fpga/sw">
+      <obj_property name="ElementShortName">sw[3:0]</obj_property>
+      <obj_property name="ObjectShortName">sw[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/rmii_fpga_tb/u_rmii_fpga/btn">
+      <obj_property name="ElementShortName">btn[2:0]</obj_property>
+      <obj_property name="ObjectShortName">btn[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/led0_r">
+      <obj_property name="ElementShortName">led0_r</obj_property>
+      <obj_property name="ObjectShortName">led0_r</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/led0_g">
+      <obj_property name="ElementShortName">led0_g</obj_property>
+      <obj_property name="ObjectShortName">led0_g</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/led0_b">
+      <obj_property name="ElementShortName">led0_b</obj_property>
+      <obj_property name="ObjectShortName">led0_b</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/led1_r">
+      <obj_property name="ElementShortName">led1_r</obj_property>
+      <obj_property name="ObjectShortName">led1_r</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/led1_g">
+      <obj_property name="ElementShortName">led1_g</obj_property>
+      <obj_property name="ObjectShortName">led1_g</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/led1_b">
+      <obj_property name="ElementShortName">led1_b</obj_property>
+      <obj_property name="ObjectShortName">led1_b</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/led2_r">
+      <obj_property name="ElementShortName">led2_r</obj_property>
+      <obj_property name="ObjectShortName">led2_r</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/led2_g">
+      <obj_property name="ElementShortName">led2_g</obj_property>
+      <obj_property name="ObjectShortName">led2_g</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/led2_b">
+      <obj_property name="ElementShortName">led2_b</obj_property>
+      <obj_property name="ObjectShortName">led2_b</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/led3_r">
+      <obj_property name="ElementShortName">led3_r</obj_property>
+      <obj_property name="ObjectShortName">led3_r</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/led3_g">
+      <obj_property name="ElementShortName">led3_g</obj_property>
+      <obj_property name="ObjectShortName">led3_g</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/led3_b">
+      <obj_property name="ElementShortName">led3_b</obj_property>
+      <obj_property name="ObjectShortName">led3_b</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/eth_ref_clk">
+      <obj_property name="ElementShortName">eth_ref_clk</obj_property>
+      <obj_property name="ObjectShortName">eth_ref_clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/eth_crs_dv">
+      <obj_property name="ElementShortName">eth_crs_dv</obj_property>
+      <obj_property name="ObjectShortName">eth_crs_dv</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/rmii_fpga_tb/u_rmii_fpga/eth_rxd">
+      <obj_property name="ElementShortName">eth_rxd[1:0]</obj_property>
+      <obj_property name="ObjectShortName">eth_rxd[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/eth_tx_en">
+      <obj_property name="ElementShortName">eth_tx_en</obj_property>
+      <obj_property name="ObjectShortName">eth_tx_en</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/rmii_fpga_tb/u_rmii_fpga/eth_txd">
+      <obj_property name="ElementShortName">eth_txd[1:0]</obj_property>
+      <obj_property name="ObjectShortName">eth_txd[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/uart_rxd">
+      <obj_property name="ElementShortName">uart_rxd</obj_property>
+      <obj_property name="ObjectShortName">uart_rxd</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/uart_txd">
+      <obj_property name="ElementShortName">uart_txd</obj_property>
+      <obj_property name="ObjectShortName">uart_txd</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/clk_ibufg">
+      <obj_property name="ElementShortName">clk_ibufg</obj_property>
+      <obj_property name="ObjectShortName">clk_ibufg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/clk_bufg">
+      <obj_property name="ElementShortName">clk_bufg</obj_property>
+      <obj_property name="ObjectShortName">clk_bufg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/clk_mmcm_out">
+      <obj_property name="ElementShortName">clk_mmcm_out</obj_property>
+      <obj_property name="ObjectShortName">clk_mmcm_out</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/clk_int">
+      <obj_property name="ElementShortName">clk_int</obj_property>
+      <obj_property name="ObjectShortName">clk_int</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/rst_int">
+      <obj_property name="ElementShortName">rst_int</obj_property>
+      <obj_property name="ObjectShortName">rst_int</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/mmcm_rst">
+      <obj_property name="ElementShortName">mmcm_rst</obj_property>
+      <obj_property name="ObjectShortName">mmcm_rst</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/mmcm_locked">
+      <obj_property name="ElementShortName">mmcm_locked</obj_property>
+      <obj_property name="ObjectShortName">mmcm_locked</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/mmcm_clkfb">
+      <obj_property name="ElementShortName">mmcm_clkfb</obj_property>
+      <obj_property name="ObjectShortName">mmcm_clkfb</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/clk_50mhz_mmcm_out">
+      <obj_property name="ElementShortName">clk_50mhz_mmcm_out</obj_property>
+      <obj_property name="ObjectShortName">clk_50mhz_mmcm_out</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/clk_50mhz_int">
+      <obj_property name="ElementShortName">clk_50mhz_int</obj_property>
+      <obj_property name="ObjectShortName">clk_50mhz_int</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/rmii_fpga_tb/u_rmii_fpga/btn_int">
+      <obj_property name="ElementShortName">btn_int[2:0]</obj_property>
+      <obj_property name="ObjectShortName">btn_int[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/rmii_fpga_tb/u_rmii_fpga/sw_int">
+      <obj_property name="ElementShortName">sw_int[3:0]</obj_property>
+      <obj_property name="ObjectShortName">sw_int[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/rmii2mac_col">
+      <obj_property name="ElementShortName">rmii2mac_col</obj_property>
+      <obj_property name="ObjectShortName">rmii2mac_col</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/rmii2mac_crs">
+      <obj_property name="ElementShortName">rmii2mac_crs</obj_property>
+      <obj_property name="ObjectShortName">rmii2mac_crs</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/rmii2mac_rx_clk">
+      <obj_property name="ElementShortName">rmii2mac_rx_clk</obj_property>
+      <obj_property name="ObjectShortName">rmii2mac_rx_clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/rmii2mac_tx_clk">
+      <obj_property name="ElementShortName">rmii2mac_tx_clk</obj_property>
+      <obj_property name="ObjectShortName">rmii2mac_tx_clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/rmii2mac_rx_dv">
+      <obj_property name="ElementShortName">rmii2mac_rx_dv</obj_property>
+      <obj_property name="ObjectShortName">rmii2mac_rx_dv</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/rmii2mac_rx_er">
+      <obj_property name="ElementShortName">rmii2mac_rx_er</obj_property>
+      <obj_property name="ObjectShortName">rmii2mac_rx_er</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/mac2rmii_tx_en">
+      <obj_property name="ElementShortName">mac2rmii_tx_en</obj_property>
+      <obj_property name="ObjectShortName">mac2rmii_tx_en</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/rmii_fpga_tb/u_rmii_fpga/rmii2mac_rxd">
+      <obj_property name="ElementShortName">rmii2mac_rxd[3:0]</obj_property>
+      <obj_property name="ObjectShortName">rmii2mac_rxd[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/rmii_fpga_tb/u_rmii_fpga/mac2rmii_txd">
+      <obj_property name="ElementShortName">mac2rmii_txd[3:0]</obj_property>
+      <obj_property name="ObjectShortName">mac2rmii_txd[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/uart_rxd_int">
+      <obj_property name="ElementShortName">uart_rxd_int</obj_property>
+      <obj_property name="ObjectShortName">uart_rxd_int</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/rmii_fpga_tb/u_rmii_fpga/eth_rst_n">
+      <obj_property name="ElementShortName">eth_rst_n</obj_property>
+      <obj_property name="ObjectShortName">eth_rst_n</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/rmii_fpga_tb/resetn">
       <obj_property name="ElementShortName">resetn</obj_property>
